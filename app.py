@@ -243,7 +243,10 @@ def login_page():
 
 @app.route("/auth/login")
 def auth_login():
-    redirect_uri = url_for("auth_callback", _external=True)
+    redirect_uri = os.environ.get(
+        "OAUTH_REDIRECT_URI",
+        url_for("auth_callback", _external=True)
+    )
     return google.authorize_redirect(redirect_uri)
 
 
